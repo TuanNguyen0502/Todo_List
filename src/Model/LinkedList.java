@@ -5,6 +5,14 @@ public class LinkedList<T> {
     private Node<T> tail = null;
     private Node<T> lastNode1 = null;
 
+    public Node<T> getLastNode1() {
+        return lastNode1;
+    }
+
+    public void setLastNode1(Node<T> lastNode1) {
+        this.lastNode1 = lastNode1;
+    }
+
     public Node<T> getHead() {
         return head;
     }
@@ -129,11 +137,9 @@ public class LinkedList<T> {
         }
     }
 
-
-    // Find Node X
     public Node<T> findNode(T target) {
         for (Node<T> p = head; p != null; p = p.next) {
-            if (p == target) {
+            if (p.data == target) {
                 return p;
             }
         }
