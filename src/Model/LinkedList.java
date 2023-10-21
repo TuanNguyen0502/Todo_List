@@ -4,13 +4,18 @@ public class LinkedList<T> {
     private Node<T> head = null;
     private Node<T> tail = null;
     private Node<T> lastNode1 = null;
+    private int size = 0;
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
 
     public Node<T> getLastNode1() {
         return lastNode1;
-    }
-
-    public void setLastNode1(Node<T> lastNode1) {
-        this.lastNode1 = lastNode1;
     }
 
     public Node<T> getHead() {
@@ -38,6 +43,7 @@ public class LinkedList<T> {
         }
         p.next = head;
         this.head = p;
+        this.size++;
     }
 
     // add tail
@@ -48,6 +54,7 @@ public class LinkedList<T> {
         } else {
             this.tail.next = p;
             this.tail = p;
+            this.size++;
         }
     }
 
@@ -61,6 +68,7 @@ public class LinkedList<T> {
             if (tail == q) {
                 tail = p;
             }
+            this.size++;
         }
     }
 
@@ -71,6 +79,7 @@ public class LinkedList<T> {
         if (head == tail) {
             head = null;
             tail = null;
+            this.size--;
             return;
         }
 
@@ -78,6 +87,7 @@ public class LinkedList<T> {
         head = head.next;
         temp.next = null;
         temp.data = null;
+        this.size--;
     }
 
     public void deleteTail() {
@@ -86,6 +96,7 @@ public class LinkedList<T> {
         if (head == tail) {
             head = null;
             tail = null;
+            this.size--;
             return;
         }
 
@@ -95,6 +106,7 @@ public class LinkedList<T> {
             {
                 tail = p;
                 tail.next = null;
+                this.size--;
                 return;
             }
         }
@@ -111,15 +123,6 @@ public class LinkedList<T> {
             deleteTail();
         }
 
-//        Node<T> current = head;
-//        while (current != null && current.data != item) {
-//            current = current.next;
-//        }
-//        if (current == null) {
-//            System.out.println("There is no Job you need to delete.");
-//            return;
-//        }
-
         Node<T> k = null;
         Node<T> p = this.head;
         while (p != null)
@@ -128,6 +131,7 @@ public class LinkedList<T> {
             {
                 k.next = p.next;
                 p = k.next;
+                this.size--;
             }
             else
             {

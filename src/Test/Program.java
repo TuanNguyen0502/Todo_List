@@ -3,20 +3,20 @@ package Test;
 import Model.*;
 import View.TodoListView;
 
-import java.util.Calendar;
+import javax.swing.*;
 
 public class Program {
     public static void main(String[] args) {
-        Job job1 = new Job("Ăn cơm", "", 1, Place.At_Home, TypeOfWork.Family,
-                false, 20, 10, 2023, 7, 0);
-        Job job2 = new Job("Đi học", "", 2, Place.At_School, TypeOfWork.School,
-                false, 17, 10, 2023, 7, 0);
-        Job job3 = new Job("Đi dạy", "", 1, Place.At_Office, TypeOfWork.Work,
-                false, 16, 10, 2023, 18, 30);
-        Job job4 = new Job("Đi ngủ", "", 3, Place.At_Home, TypeOfWork.Personal,
-                false, 20, 10, 2023, 23, 30);
-        Job job5 = new Job("Đi choi", "", 2, Place.At_Home, TypeOfWork.Personal,
-                false, 20, 10, 2023, 19, 30);
+        Job job1 = new Job("Ăn cơm", "1", "Family", "At Home",
+                false, "20", "10", "2023", "7", "0");
+        Job job2 = new Job("Đi học", "2", "School", "At School",
+                false, "25", "10", "2023", "7", "0");
+        Job job3 = new Job("Đi dạy", "1", "Work", "At Office",
+                false, "16", "10", "2023", "18", "30");
+        Job job4 = new Job("Đi ngủ", "3", "Personal", "At Home",
+                false, "20", "10", "2023", "23", "30");
+        Job job5 = new Job("Đi choi", "2", "Personal", "Outside",
+                false, "30", "10", "2023", "19", "30");
 
         TodoListModel todoListModel = new TodoListModel();
 
@@ -26,14 +26,11 @@ public class Program {
         todoListModel.addJob(job4);
         todoListModel.addJob(job5);
 
-//        todoListModel.deleteJob(job3);
-
-        todoListModel.markJobAsDone(job2);
-
-        todoListModel.changeJobName(job1, "Com");
-
-        todoListModel.printListByDate(20);
-
-//        todoListModel.todoList.printList();
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            new TodoListView(todoListModel);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

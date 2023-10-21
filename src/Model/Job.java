@@ -6,19 +6,17 @@ import java.util.Calendar;
 
 public class Job {
     String jobName; // Tiêu đề công việc
-    String jobDiscription; // Mô tả công việc
-    int priority;           // Độ ưu tiên
-    Place placeToWork; // Địa điểm làm việc
-    TypeOfWork typeOfWork; // Phân loại công việc
+    String priority;           // Độ ưu tiên
+    String placeToWork; // Địa điểm làm việc
+    String typeOfWork; // Phân loại công việc
     boolean status = false; // Trạng thái công việc
+    String day, month, year;   // Ngày tháng năm deadline
+    String hour, minute;       // Giờ phút deadline
 
-    int day, month, year;   // Ngày tháng năm deadline
-    int hour, minute;       // Giờ phút deadline
 
-    public Job(String jobName, String jobDiscription, int priority, Place placeToWork,
-               TypeOfWork typeOfWork, boolean status, int day, int month, int year, int hour, int minute) {
+    public Job(String jobName, String priority, String placeToWork, String typeOfWork,
+               boolean status, String day, String month, String year, String hour, String minute) {
         this.jobName = jobName;
-        this.jobDiscription = jobDiscription;
         this.priority = priority;
         this.placeToWork = placeToWork;
         this.typeOfWork = typeOfWork;
@@ -30,12 +28,17 @@ public class Job {
         this.minute = minute;
     }
 
-    public int getPriority() {
-        return priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
+    public Job() {
+        this.jobName = null;
+        this.priority = null;
+        this.placeToWork = null;
+        this.typeOfWork = null;
+        this.status = false;
+        this.day = null;
+        this.month = null;
+        this.year = null;
+        this.hour = null;
+        this.minute = null;
     }
 
     public String getJobName() {
@@ -46,92 +49,81 @@ public class Job {
         this.jobName = jobName;
     }
 
-    public String getJobDiscrip() {
-        return jobDiscription;
+    public String getPriority() {
+        return priority;
     }
 
-    public void setJobDiscrip(String jobDiscrip) {
-        this.jobDiscription = jobDiscrip;
+    public void setPriority(String priority) {
+        this.priority = priority;
     }
 
-    public Place getPlaceToWork() {
+    public String getPlaceToWork() {
         return placeToWork;
     }
 
-    public void setPlaceToWork(Place placeToWork) {
+    public void setPlaceToWork(String placeToWork) {
         this.placeToWork = placeToWork;
     }
 
-    public TypeOfWork getTypeOfWork() {
+    public String getTypeOfWork() {
         return typeOfWork;
     }
 
-    public void setTypeOfWork(TypeOfWork typeOfWork) {
+    public void setTypeOfWork(String typeOfWork) {
         this.typeOfWork = typeOfWork;
     }
 
-    public boolean isStatus() {
-        return status;
+    public String getStatus() {
+        return status ? "True" : "False";
     }
 
     public void setStatus(boolean status) {
         this.status = status;
     }
 
-    public int getDay() {
+    public String getDay() {
         return day;
     }
 
-    public void setDay(int day) {
+    public void setDay(String day) {
         this.day = day;
     }
 
-    public int getMonth() {
+    public String getMonth() {
         return month;
     }
 
-    public void setMonth(int month) {
+    public void setMonth(String month) {
         this.month = month;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
-    public int getHour() {
+    public String getHour() {
         return hour;
     }
 
-    public void setHour(int hour) {
+    public void setHour(String hour) {
         this.hour = hour;
     }
 
-    public int getMinute() {
+    public String getMinute() {
         return minute;
     }
 
-    public void setMinute(int minute) {
+    public void setMinute(String minute) {
         this.minute = minute;
     }
 
     @Override
     public String toString() {
-        return "Job{" +
-                "jobName='" + jobName + '\'' +
-                ", jobDiscription='" + jobDiscription + '\'' +
-                ", priority=" + priority +
-                ", placeToWork=" + placeToWork +
-                ", typeOfWork=" + typeOfWork +
-                ", status=" + status +
-                ", day=" + day +
-                ", month=" + month +
-                ", year=" + year +
-                ", hour=" + hour +
-                ", minute=" + minute +
-                '}';
+        return jobName + ", \t" + priority + ", \t" + typeOfWork + ", \t" +placeToWork + status
+                + ", \t" + minute + ", \t" + hour + ", \t" + day + ", \t" + month + ", \t" + year;
     }
 }
