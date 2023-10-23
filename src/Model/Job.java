@@ -5,17 +5,17 @@ import java.sql.Time;
 import java.util.Calendar;
 
 public class Job {
-    String jobName; // Tiêu đề công việc
-    String priority;           // Độ ưu tiên
-    String placeToWork; // Địa điểm làm việc
-    String typeOfWork; // Phân loại công việc
-    boolean status = false; // Trạng thái công việc
-    String day, month, year;   // Ngày tháng năm deadline
-    String hour, minute;       // Giờ phút deadline
+    private String jobName; // Tiêu đề công việc
+    private String priority;           // Độ ưu tiên
+    private String placeToWork; // Địa điểm làm việc
+    private String typeOfWork; // Phân loại công việc
+    private String status = "Not done"; // Trạng thái công việc
+    private String day, month, year;   // Ngày tháng năm deadline
+    private String hour, minute;       // Giờ phút deadline
 
 
     public Job(String jobName, String priority, String placeToWork, String typeOfWork,
-               boolean status, String day, String month, String year, String hour, String minute) {
+               String status, String day, String month, String year, String hour, String minute) {
         this.jobName = jobName;
         this.priority = priority;
         this.placeToWork = placeToWork;
@@ -33,7 +33,7 @@ public class Job {
         this.priority = null;
         this.placeToWork = null;
         this.typeOfWork = null;
-        this.status = false;
+        this.status = "Not done";
         this.day = null;
         this.month = null;
         this.year = null;
@@ -74,10 +74,10 @@ public class Job {
     }
 
     public String getStatus() {
-        return status ? "True" : "False";
+        return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String  status) {
         this.status = status;
     }
 
@@ -123,7 +123,7 @@ public class Job {
 
     @Override
     public String toString() {
-        return jobName + ", \t" + priority + ", \t" + typeOfWork + ", \t" +placeToWork + status
-                + ", \t" + minute + ", \t" + hour + ", \t" + day + ", \t" + month + ", \t" + year;
+        return jobName + ", \t" + priority + ", \t" + typeOfWork + ", \t" +placeToWork + status + ""
+                + ", \t" + hour + ", \t" + minute + ", \t" + day + ", \t" + month + ", \t" + year;
     }
 }
