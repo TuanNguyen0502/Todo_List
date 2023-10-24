@@ -231,6 +231,17 @@ public class TodoListModel {
         return count;
     }
 
+    public int countJobNotDone()
+    {
+        int count = 0;
+        for (Node<Job> p = todoList.getHead(); p != null; p = p.next)
+        {
+            if (p.data.getStatus().equals("Not done"))
+                count++;
+        }
+        return count;
+    }
+
     public boolean checkExist(Job job)
     {
         Node<Job> temp = todoList.findNode(job);

@@ -22,14 +22,26 @@ public class TodoListView extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         jMenuItem_save = new JMenuItem("Save");
-        jMenuItem_close = new JMenuItem("Exit");
-        jMenu_file = new JMenu("File");
-        jMenuBar = new JMenuBar();
         jMenuItem_save.setFont(new Font("Arial", Font.PLAIN, 15));
+
+        jMenuItem_close = new JMenuItem("Exit");
         jMenuItem_close.setFont(new Font("Arial", Font.PLAIN, 15));
+
+        jMenu_file = new JMenu("File");
+        jMenu_file.setFont(new Font("Arial", Font.BOLD, 15));
         jMenu_file.add(jMenuItem_save);
         jMenu_file.add(jMenuItem_close);
+
+        jMenuItem_Infor = new JMenuItem("Contact Information");
+        jMenuItem_Infor.setFont(new Font("Arial", Font.BOLD, 15));
+
+        jMenu_Help = new JMenu("Help");
+        jMenu_Help.setFont(new Font("Arial", Font.BOLD, 15));
+        jMenu_Help.add(jMenuItem_Infor);
+
+        jMenuBar = new JMenuBar();
         jMenuBar.add(jMenu_file);
+        jMenuBar.add(jMenu_Help);
 
         jMenuItem_save.addActionListener(new ActionListener() {
             @Override
@@ -43,6 +55,14 @@ public class TodoListView extends JFrame {
             }
         });
 
+        jMenuItem_Infor.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(general, "Student Email: 22110260@student.hcmute.edu.vn\n" +
+                        "Personal Email: nguyenhahongtuan@gmail.com\n" +
+                        "Phone: 0705488458");
+            }
+        });
         jMenuItem_close.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -206,8 +226,8 @@ public class TodoListView extends JFrame {
         this.setJMenuBar(jMenuBar);
         this.setContentPane(general);
         this.setVisible(true);
-        JOptionPane.showMessageDialog(general, "You have " + todoListModel.todoList.getSize() +
-                " Jobs to be done !!! \n And " + todoListModel.remind() + " Jobs are over Deadline !!!");
+        JOptionPane.showMessageDialog(general, "You have " + todoListModel.countJobNotDone() +
+                " Jobs need to be done !!! \nAnd " + todoListModel.remind() + " Jobs are over Deadline !!!");
     }
 
     private void clearAndReset()
@@ -276,32 +296,19 @@ public class TodoListView extends JFrame {
     private JMenu jMenu_file;
     private JMenuItem jMenuItem_save;
     private JMenuItem jMenuItem_close;
+    private JMenu jMenu_Help;
+    private JMenuItem jMenuItem_Infor;
 
     private static class TableJobList extends AbstractTableModel
     {
         private final String[] COLUMNS = {"Name", "Priority", "Type", "Place", "Status",
-                "Minute", "Hour", "Day", "Month", "Year"};
+                "Hour", "Minute", "Day", "Month", "Year"};
         private TodoListModel todoListModel;
 //        private MyArrayList<Job> jobs;
 
         public TableJobList(TodoListModel todoListModel) {
             this.todoListModel = todoListModel;
-//            jobs = new MyArrayList<Job>(todoListModel.todoList.getSize() + 1);
-//            for (Node<Job> p = todoListModel.todoList.getHead(); p != null; p = p.next)
-//            {
-//                jobs.add(p.data);
-//            }
         }
-
-//        public void createJobs(TodoListModel todoListModel)
-//        {
-//            MyArrayList<Job> temp = new MyArrayList<>(todoListModel.todoList.getSize() + 1);
-//            for (Node<Job> p = todoListModel.todoList.getHead(); p != null; p = p.next)
-//            {
-//                temp.add(p.data);
-//            }
-//            jobs = temp;
-//        }
 
         @Override
         public int getRowCount() {
@@ -321,8 +328,8 @@ public class TodoListView extends JFrame {
                 case 2 -> todoListModel.todoList.get(rowIndex).getTypeOfWork();
                 case 3 -> todoListModel.todoList.get(rowIndex).getPlaceToWork();
                 case 4 -> todoListModel.todoList.get(rowIndex).getStatus();
-                case 5 -> todoListModel.todoList.get(rowIndex).getMinute();
-                case 6 -> todoListModel.todoList.get(rowIndex).getHour();
+                case 5 -> todoListModel.todoList.get(rowIndex).getHour();
+                case 6 -> todoListModel.todoList.get(rowIndex).getMinute();
                 case 7 -> todoListModel.todoList.get(rowIndex).getDay();
                 case 8 -> todoListModel.todoList.get(rowIndex).getMonth();
                 case 9 -> todoListModel.todoList.get(rowIndex).getYear();
