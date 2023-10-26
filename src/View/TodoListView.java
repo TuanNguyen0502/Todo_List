@@ -1,11 +1,14 @@
 package View;
 
-import Model.*;
+import Model.Job;
+import Model.LinkedList;
+import Model.TodoListModel;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -58,11 +61,13 @@ public class TodoListView extends JFrame {
         jMenuItem_Infor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(general, "Student Email: 22110260@student.hcmute.edu.vn\n" +
-                        "Personal Email: nguyenhahongtuan@gmail.com\n" +
-                        "Phone: 0705488458");
+                JOptionPane.showMessageDialog(general, """
+                        Student Email: 22110260@student.hcmute.edu.vn
+                        Personal Email: nguyenhahongtuan@gmail.com
+                        Phone: 0705488458""");
             }
         });
+
         jMenuItem_close.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -72,21 +77,25 @@ public class TodoListView extends JFrame {
 
         tableJobList = new TableJobList(todoListModel);
         table_JobList.setModel(tableJobList);
+        // Căn giữa các cell
+        DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) table_JobList.getDefaultRenderer(Object.class);
+        renderer.setHorizontalAlignment( SwingConstants.CENTER );
+        // Resize column đầu tiên - Job name
+        table_JobList.getColumnModel().getColumn(0).setPreferredWidth(200);
 
         button_add.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (textField_setName.getText().isEmpty() ||
-                        comboBox_setPriority.getSelectedIndex() == -1 ||
-                        comboBox_setType.getSelectedIndex() == -1 ||
-                        comboBox_setPlace.getSelectedIndex() == -1 ||
-                        comboBox_setMinute.getSelectedIndex() == -1 ||
-                        comboBox_setHour.getSelectedIndex() == -1 ||
-                        comboBox_setDay.getSelectedIndex() == -1 ||
-                        comboBox_setMonth.getSelectedIndex() == -1 ||
-                        textField_setYear.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(general, "Must enter all information field !!!");
-                } else {
+                if (textField_setName.getText().isEmpty())
+                {
+                    JOptionPane.showMessageDialog(general, "Must enter JOB NAME !!!");
+                }
+                else if (comboBox_setPriority.getSelectedIndex() == -1)
+                {
+                    JOptionPane.showMessageDialog(general, "Must choose PRIORITY !!!");
+                }
+                else
+                {
                     Job job = new Job();
                     job.setJobName(textField_setName.getText());
                     job.setPriority((String) comboBox_setPriority.getSelectedItem());
@@ -97,7 +106,16 @@ public class TodoListView extends JFrame {
                     job.setHour((String) comboBox_setHour.getSelectedItem());
                     job.setDay((String) comboBox_setDay.getSelectedItem());
                     job.setMonth((String) comboBox_setMonth.getSelectedItem());
-                    job.setYear(textField_setYear.getText());
+                    while (true) {
+                        try {
+                            int year = Integer.parseInt(textField_setYear.getText());
+                            job.setYear(textField_setYear.getText());
+                            break;
+                        } catch (Exception ex) {
+                            job.setYear(JOptionPane.showInputDialog(general, "You must enter a number for YEAR:"));
+                            break;
+                        }
+                    }
 
                     todoListModel.addJob(job);
                     tableJobList.fireTableDataChanged();
@@ -125,7 +143,7 @@ public class TodoListView extends JFrame {
                         comboBox_setHour.setSelectedItem((String) selectedJob.getHour());
                         comboBox_setDay.setSelectedItem((String) selectedJob.getDay());
                         comboBox_setMonth.setSelectedItem((String) selectedJob.getMonth());
-                        textField_setYear.setText(selectedJob.getYear() + "");
+                        textField_setYear.setText(selectedJob.getYear());
                     }
                 }
             }
@@ -168,11 +186,12 @@ public class TodoListView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (table_JobList.getSelectedRowCount() == 1) {
-                    todoListModel.deleteJob(selectedJob);
-//                tableJobList.todoListModel.todoList.set(selectedIndex, selectedJob);
-                    tableJobList.fireTableDataChanged();
-                    clearAndReset();
-                    JOptionPane.showMessageDialog(general, "Delete successfully !!!");
+                    int choice = JOptionPane.showConfirmDialog(general, "Are you sure about deleting this job.");
+                    if (choice == JOptionPane.YES_OPTION) {
+                        todoListModel.deleteJob(selectedJob);
+                        tableJobList.fireTableDataChanged();
+                        clearAndReset();
+                    }
                 }
                 else
                 {
@@ -186,7 +205,7 @@ public class TodoListView extends JFrame {
             }
         });
 
-        button_Print.addActionListener(new ActionListener() {
+        button_search.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (textField_getName.getText().isEmpty() &&
@@ -200,26 +219,37 @@ public class TodoListView extends JFrame {
                         textField_getYear.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(general, "Must enter at least 1 information field !!!");
                 } else {
-//                    String[] temp = {textField_getName.getText(), (String) comboBox_getPriority.getSelectedItem(),
-//                            (String) comboBox_getType.getSelectedItem(), (String) comboBox_getPlace.getSelectedItem(),
-//                            (String) comboBox_getHour.getSelectedItem(), (String) comboBox_getMinute.getSelectedItem(),
-//                            (String) comboBox_getDay.getSelectedItem(), (String) comboBox_getMonth.getSelectedItem(),
-//                            textField_getYear.getText()};
+                    String[] temp = {textField_getName.getText(), (String) comboBox_getPriority.getSelectedItem(),
+                            (String) comboBox_getType.getSelectedItem(), (String) comboBox_getPlace.getSelectedItem(),
+                            (String) comboBox_getHour.getSelectedItem(), (String) comboBox_getMinute.getSelectedItem(),
+                            (String) comboBox_getDay.getSelectedItem(), (String) comboBox_getMonth.getSelectedItem(),
+                            textField_getYear.getText()};
 
-                    Job job = new Job();
-                    job.setJobName(textField_getName.getText());
-                    job.setPriority((String) comboBox_getPriority.getSelectedItem());
-                    job.setStatus((String) comboBox_getStatus.getSelectedItem());
-                    job.setTypeOfWork((String) comboBox_getType.getSelectedItem());
-                    job.setPlaceToWork((String) comboBox_getPlace.getSelectedItem());
-                    job.setMinute((String) comboBox_getMinute.getSelectedItem());
-                    job.setHour((String) comboBox_getHour.getSelectedItem());
-                    job.setDay((String) comboBox_getDay.getSelectedItem());
-                    job.setMonth((String) comboBox_getMonth.getSelectedItem());
-                    job.setYear(textField_getYear.getText());
+//                    Job job = new Job();
+//                    job.setJobName(textField_getName.getText());
+//                    job.setPriority((String) comboBox_getPriority.getSelectedItem());
+//                    job.setStatus((String) comboBox_getStatus.getSelectedItem());
+//                    job.setTypeOfWork((String) comboBox_getType.getSelectedItem());
+//                    job.setPlaceToWork((String) comboBox_getPlace.getSelectedItem());
+//                    job.setMinute((String) comboBox_getMinute.getSelectedItem());
+//                    job.setHour((String) comboBox_getHour.getSelectedItem());
+//                    job.setDay((String) comboBox_getDay.getSelectedItem());
+//                    job.setMonth((String) comboBox_getMonth.getSelectedItem());
+//                    job.setYear(textField_getYear.getText());
 
-                    JOptionPane.showMessageDialog(general, "Print successfully !!!");
+                    tableJobList.todoListModel.todoList = todoListModel.findListJob(temp);
+                    tableJobList.fireTableDataChanged();
+
+                    JOptionPane.showMessageDialog(general, "Search successfully !!!");
                 }
+            }
+        });
+
+        button_unsearch.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tableJobList.todoListModel = todoListModel;
+                tableJobList.fireTableDataChanged();
             }
         });
 
@@ -233,8 +263,15 @@ public class TodoListView extends JFrame {
     private void clearAndReset()
     {
         textField_setName.setText("");
-        table_JobList.clearSelection();
+        comboBox_setPriority.setSelectedIndex(-1);
+        comboBox_setType.setSelectedIndex(-1);
+        comboBox_setPlace.setSelectedIndex(-1);
+        comboBox_setHour.setSelectedIndex(-1);
+        comboBox_setMinute.setSelectedIndex(-1);
+        comboBox_setDay.setSelectedIndex(-1);
+        comboBox_setMonth.setSelectedIndex(-1);
         textField_setYear.setText("");
+        table_JobList.clearSelection();
         selectedIndex = -1;
         selectedJob = null;
     }
@@ -273,7 +310,7 @@ public class TodoListView extends JFrame {
     private JLabel jLabel_setMonth;
     private JLabel jLabel_setYear;
     private JTextField textField_setYear;
-    private JButton button_Print;
+    private JButton button_search;
     private JButton button_add;
     private JButton button_delete;
     private JButton button_edit;
@@ -288,6 +325,7 @@ public class TodoListView extends JFrame {
     private JComboBox comboBox_getDay;
     private JComboBox comboBox_getHour;
     private JComboBox comboBox_getMinute;
+    private JButton button_unsearch;
     TableJobList tableJobList;
     private Job selectedJob;
     private int selectedIndex;
@@ -301,8 +339,8 @@ public class TodoListView extends JFrame {
 
     private static class TableJobList extends AbstractTableModel
     {
-        private final String[] COLUMNS = {"Name", "Priority", "Type", "Place", "Status",
-                "Hour", "Minute", "Day", "Month", "Year"};
+        private final String[] COLUMNS = {"Name", "Priority", "Type", "Place",
+                "Hour", "Minute", "Day", "Month", "Year", "Status"};
         private TodoListModel todoListModel;
 //        private MyArrayList<Job> jobs;
 
@@ -327,12 +365,12 @@ public class TodoListView extends JFrame {
                 case 1 -> todoListModel.todoList.get(rowIndex).getPriority();
                 case 2 -> todoListModel.todoList.get(rowIndex).getTypeOfWork();
                 case 3 -> todoListModel.todoList.get(rowIndex).getPlaceToWork();
-                case 4 -> todoListModel.todoList.get(rowIndex).getStatus();
-                case 5 -> todoListModel.todoList.get(rowIndex).getHour();
-                case 6 -> todoListModel.todoList.get(rowIndex).getMinute();
-                case 7 -> todoListModel.todoList.get(rowIndex).getDay();
-                case 8 -> todoListModel.todoList.get(rowIndex).getMonth();
-                case 9 -> todoListModel.todoList.get(rowIndex).getYear();
+                case 4 -> todoListModel.todoList.get(rowIndex).getHour();
+                case 5 -> todoListModel.todoList.get(rowIndex).getMinute();
+                case 6 -> todoListModel.todoList.get(rowIndex).getDay();
+                case 7 -> todoListModel.todoList.get(rowIndex).getMonth();
+                case 8 -> todoListModel.todoList.get(rowIndex).getYear();
+                case 9 -> todoListModel.todoList.get(rowIndex).getStatus();
                 default -> "-";
             };
         }

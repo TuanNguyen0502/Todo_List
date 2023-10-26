@@ -1,10 +1,11 @@
 package Model;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Calendar;
 
-public class Job {
+public class Job implements Serializable {
     private String jobName; // Tiêu đề công việc
     private String priority;           // Độ ưu tiên
     private String placeToWork; // Địa điểm làm việc
@@ -123,7 +124,7 @@ public class Job {
 
     @Override
     public String toString() {
-        return jobName + ", \t" + priority + ", \t" + typeOfWork + ", \t" +placeToWork + status + ""
-                + ", \t" + hour + ", \t" + minute + ", \t" + day + ", \t" + month + ", \t" + year;
+        return jobName + ", \t" + priority + ", \t" + typeOfWork + ", \t" +placeToWork + status + ", \t" +
+                hour + ", \t" + minute + ", \t" + day + ", \t" + month + ", \t" + year;
     }
 }

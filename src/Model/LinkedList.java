@@ -112,7 +112,29 @@ public class LinkedList<T> {
         }
     }
 
-    public void deleteItem(T item) {
+    public void delete(Node<T> nodeToDelete) {
+        if (nodeToDelete == null || head == null) {
+            return;
+        }
+
+        if (head == nodeToDelete) {
+            head = head.next;
+            size--;
+            return;
+        }
+
+        Node<T> current = head;
+        while (current.next != null) {
+            if (current.next == nodeToDelete) {
+                current.next = current.next.next;
+                size--;
+                return;
+            }
+            current = current.next;
+        }
+    }
+
+    public void delete(T item) {
 
         if (head == null)
             return;
@@ -186,6 +208,7 @@ public class LinkedList<T> {
 
         return current.data;
     }
+
     public void set(int index, T newData) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index is out of bounds");

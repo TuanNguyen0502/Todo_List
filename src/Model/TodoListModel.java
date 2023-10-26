@@ -1,7 +1,5 @@
 package Model;
 
-import View.TodoListView;
-
 import java.io.*;
 import java.util.Calendar;
 import java.util.Scanner;
@@ -26,7 +24,7 @@ public class TodoListModel {
 
     public void deleteJob(Job job)
     {
-        todoList.deleteItem(job);
+        todoList.delete(job);
     }
 
     public void changeJob(Job oldJob, Job newJob)
@@ -250,75 +248,30 @@ public class TodoListModel {
 
     public void readFromFile()
     {
-        Scanner sc = null;
-        try
-        {
-            BufferedReader in = new BufferedReader(new FileReader("Job_List.txt"), 16*1024);
-            sc = new Scanner(in);
-            sc.useDelimiter(";");
-            while (sc.hasNext())
-            {
-                Job job = new Job();
-                job.setJobName(sc.next());
-                job.setPriority(sc.next());
-                job.setTypeOfWork(sc.next());
-                job.setPlaceToWork(sc.next());
-                job.setStatus(sc.next());
-                job.setHour(sc.next());
-                job.setMinute(sc.next());
-                job.setDay(sc.next());
-                job.setMonth(sc.next());
-                job.setYear(sc.next());
+        try {
+            FileInputStream fis = new FileInputStream("Job_List");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            Job job = null;
+            while((job = (Job) ois.readObject()) != null) {
                 this.addJob(job);
             }
-        }
-        catch (IOException e)
-        {
-            System.out.println("Error: " + e.getMessage());
-        }
-        finally {
-            sc.close();
+            ois.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
     public void writeIntoFile() throws IOException {
-        BufferedWriter bufferedWriter = null;
-
         try {
-            Writer writer = new FileWriter("Job_List.txt");
-            bufferedWriter = new BufferedWriter(writer);
-
+            FileOutputStream fos = new FileOutputStream("Job_List");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
             for (Node<Job> p = todoList.getHead(); p != null; p = p.next)
             {
-                bufferedWriter.write(p.data.getJobName());
-                bufferedWriter.write(";");
-                bufferedWriter.write(p.data.getPriority());
-                bufferedWriter.write(";");
-                bufferedWriter.write(p.data.getTypeOfWork());
-                bufferedWriter.write(";");
-                bufferedWriter.write(p.data.getPlaceToWork());
-                bufferedWriter.write(";");
-                bufferedWriter.write(p.data.getStatus());
-                bufferedWriter.write(";");
-                bufferedWriter.write(p.data.getHour());
-                bufferedWriter.write(";");
-                bufferedWriter.write(p.data.getMinute());
-                bufferedWriter.write(";");
-                bufferedWriter.write(p.data.getDay());
-                bufferedWriter.write(";");
-                bufferedWriter.write(p.data.getMonth());
-                bufferedWriter.write(";");
-                bufferedWriter.write(p.data.getYear());
-                bufferedWriter.write(";");
+                oos.writeObject(p.data);
             }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (bufferedWriter != null) {
-                bufferedWriter.close();
-            }
+            oos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -327,4 +280,17 @@ public class TodoListModel {
 
     }
 
+    public LinkedList<Job> findListJob(String[] infor) {
+        LinkedList<Job> temp = this.todoList;
+        for (String s : infor) {
+            for (Node<Job> p = temp.getHead(); p != null; p = p.next) {
+                if (s != null) {
+                    if (!p.data.getJobName().contains(s)) {
+                        temp.delete(p);
+                    }
+                }
+            }
+        }
+        return temp;
+    }
 }
