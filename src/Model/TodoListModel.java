@@ -280,15 +280,83 @@ public class TodoListModel {
 
     }
 
-    public LinkedList<Job> findListJob(String[] infor) {
-        LinkedList<Job> temp = this.todoList;
-        for (String s : infor) {
-            for (Node<Job> p = temp.getHead(); p != null; p = p.next) {
-                if (s != null) {
-                    if (!p.data.getJobName().contains(s)) {
-                        temp.delete(p);
+    public MyArrayList<Job> findListJob(String[] infor) {
+        MyArrayList<Job> temp = new MyArrayList<>();
+        for (Node<Job> p = todoList.getHead(); p != null; p = p.next)
+        {
+            for (int i = 0; i < infor.length; i++)
+            {
+                if (i == 0)
+                {
+                    if (!p.data.getJobName().equals(infor[i]))
+                    {
+                        break;
                     }
                 }
+                else if (i == 1)
+                {
+                    if (!p.data.getPriority().equals(infor[i]))
+                    {
+                        break;
+                    }
+                }
+                else if (i == 2)
+                {
+                    if (!p.data.getTypeOfWork().equals(infor[i]))
+                    {
+                        break;
+                    }
+                }
+                else if (i == 3)
+                {
+                    if (!p.data.getPlaceToWork().equals(infor[i]))
+                    {
+                        break;
+                    }
+                }
+                else if (i == 4)
+                {
+                    if (!p.data.getHour().equals(infor[i]))
+                    {
+                        break;
+                    }
+                }
+                else if (i == 5)
+                {
+                    if (!p.data.getMinute().equals(infor[i]))
+                    {
+                        break;
+                    }
+                }
+                else if (i == 6)
+                {
+                    if (!p.data.getDay().equals(infor[i]))
+                    {
+                        break;
+                    }
+                }
+                else if (i == 7)
+                {
+                    if (!p.data.getMonth().equals(infor[i]))
+                    {
+                        break;
+                    }
+                }
+                else if (i == 8)
+                {
+                    if (!p.data.getYear().equals(infor[i]))
+                    {
+                        break;
+                    }
+                }
+                else if (i == 9)
+                {
+                    if (!p.data.getStatus().equals(infor[i]))
+                    {
+                        break;
+                    }
+                }
+                temp.add(p.data);
             }
         }
         return temp;

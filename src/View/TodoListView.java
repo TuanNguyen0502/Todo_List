@@ -1,7 +1,7 @@
 package View;
 
 import Model.Job;
-import Model.LinkedList;
+import Model.MyArrayList;
 import Model.TodoListModel;
 
 import javax.swing.*;
@@ -223,7 +223,7 @@ public class TodoListView extends JFrame {
                             (String) comboBox_getType.getSelectedItem(), (String) comboBox_getPlace.getSelectedItem(),
                             (String) comboBox_getHour.getSelectedItem(), (String) comboBox_getMinute.getSelectedItem(),
                             (String) comboBox_getDay.getSelectedItem(), (String) comboBox_getMonth.getSelectedItem(),
-                            textField_getYear.getText()};
+                            textField_getYear.getText(), (String) comboBox_getStatus.getSelectedItem()};
 
 //                    Job job = new Job();
 //                    job.setJobName(textField_getName.getText());
@@ -237,7 +237,26 @@ public class TodoListView extends JFrame {
 //                    job.setMonth((String) comboBox_getMonth.getSelectedItem());
 //                    job.setYear(textField_getYear.getText());
 
-                    tableJobList.todoListModel.todoList = todoListModel.findListJob(temp);
+
+                    MyArrayList<Job> result = todoListModel.findListJob(temp);
+                    for (int i = 0; i < result.size(); i++)
+                    {
+                        System.out.println(result.get(i).toString());
+                    }
+//                    for (int i = 0; i < result.size(); i++)
+//                    {
+//                        tableJobList.setValueAt(result.get(i).getJobName(), i, 0);
+//                        tableJobList.setValueAt(result.get(i).getPriority(), i, 1);
+//                        tableJobList.setValueAt(result.get(i).getTypeOfWork(), i, 2);
+//                        tableJobList.setValueAt(result.get(i).getPlaceToWork(), i, 3);
+//                        tableJobList.setValueAt(result.get(i).getHour(), i, 4);
+//                        tableJobList.setValueAt(result.get(i).getMinute(), i, 5);
+//                        tableJobList.setValueAt(result.get(i).getDay(), i, 6);
+//                        tableJobList.setValueAt(result.get(i).getMonth(), i, 7);
+//                        tableJobList.setValueAt(result.get(i).getYear(), i, 8);
+//                        tableJobList.setValueAt(result.get(i).getStatus(), i, 9);
+//
+//                    }
                     tableJobList.fireTableDataChanged();
 
                     JOptionPane.showMessageDialog(general, "Search successfully !!!");
@@ -248,8 +267,25 @@ public class TodoListView extends JFrame {
         button_unsearch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                tableJobList.todoListModel = todoListModel;
+                tableJobList.todoListModel.todoList = todoListModel.todoList;
                 tableJobList.fireTableDataChanged();
+            }
+        });
+
+        button_clearChoice.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textField_getName.setText(null);
+                comboBox_getPriority.setSelectedIndex(-1);
+                comboBox_getType.setSelectedIndex(-1);
+                comboBox_getPlace.setSelectedIndex(-1);
+                comboBox_getHour.setSelectedIndex(-1);
+                comboBox_getMinute.setSelectedIndex(-1);
+                comboBox_getDay.setSelectedIndex(-1);
+                comboBox_getMonth.setSelectedIndex(-1);
+                textField_getYear.setText(null);
+                comboBox_getStatus.setSelectedItem(-1);
+                table_JobList.clearSelection();
             }
         });
 
@@ -285,8 +321,6 @@ public class TodoListView extends JFrame {
     private JComboBox comboBox_getPriority;
     private JLabel jLabel_getPlace;
     private JComboBox comboBox_getPlace;
-    private JLabel jLabel_getStatus;
-    private JComboBox comboBox_getStatus;
     private JLabel jLabel_getDay;
     private JLabel jLabal_getMonth;
     private JTextField textField_getYear;
@@ -326,6 +360,9 @@ public class TodoListView extends JFrame {
     private JComboBox comboBox_getHour;
     private JComboBox comboBox_getMinute;
     private JButton button_unsearch;
+    private JLabel jLabel_getStatus;
+    private JComboBox comboBox_getStatus;
+    private JButton button_clearChoice;
     TableJobList tableJobList;
     private Job selectedJob;
     private int selectedIndex;

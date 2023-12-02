@@ -485,26 +485,6 @@
               <text value="Month"/>
             </properties>
           </component>
-          <component id="e5a1f" class="javax.swing.JLabel" binding="jLabel_getYear">
-            <constraints>
-              <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <focusable value="true"/>
-              <font size="16"/>
-              <text value="Year"/>
-            </properties>
-          </component>
-          <component id="b968b" class="javax.swing.JTextField" binding="textField_getYear">
-            <constraints>
-              <grid row="1" column="6" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                <preferred-size width="100" height="-1"/>
-              </grid>
-            </constraints>
-            <properties>
-              <font size="16"/>
-            </properties>
-          </component>
           <component id="623d3" class="javax.swing.JLabel" binding="jLabel_getHour">
             <constraints>
               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -521,28 +501,6 @@
             <properties>
               <font size="16"/>
               <text value="Minute"/>
-            </properties>
-          </component>
-          <component id="ecc3f" class="javax.swing.JLabel" binding="jLabel_getStatus">
-            <constraints>
-              <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font size="16"/>
-              <text value="Status"/>
-            </properties>
-          </component>
-          <component id="913be" class="javax.swing.JComboBox" binding="comboBox_getStatus">
-            <constraints>
-              <grid row="0" column="6" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font size="16"/>
-              <model>
-                <item value="Not done"/>
-                <item value="Done"/>
-              </model>
-              <selectedIndex value="-1"/>
             </properties>
           </component>
           <component id="98434" class="javax.swing.JComboBox" binding="comboBox_getPlace">
@@ -595,17 +553,6 @@
                 <item value="Else"/>
               </model>
               <selectedIndex value="-1"/>
-            </properties>
-          </component>
-          <component id="d0312" class="javax.swing.JButton" binding="button_search">
-            <constraints>
-              <grid row="3" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                <preferred-size width="100" height="-1"/>
-              </grid>
-            </constraints>
-            <properties>
-              <font size="18" style="3"/>
-              <text value="Search"/>
             </properties>
           </component>
           <grid id="ea9c0" layout-manager="BorderLayout" hgap="0" vgap="0">
@@ -854,6 +801,68 @@
             <properties>
               <font size="18" style="3"/>
               <text value="Unsearch"/>
+            </properties>
+          </component>
+          <component id="d0312" class="javax.swing.JButton" binding="button_search">
+            <constraints>
+              <grid row="3" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="100" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font size="18" style="3"/>
+              <text value="Search"/>
+            </properties>
+          </component>
+          <component id="e5a1f" class="javax.swing.JLabel" binding="jLabel_getYear">
+            <constraints>
+              <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <focusable value="true"/>
+              <font size="16"/>
+              <text value="Year"/>
+            </properties>
+          </component>
+          <component id="b968b" class="javax.swing.JTextField" binding="textField_getYear">
+            <constraints>
+              <grid row="1" column="6" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="100" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font size="16"/>
+            </properties>
+          </component>
+          <component id="d36e0" class="javax.swing.JLabel" binding="jLabel_getStatus">
+            <constraints>
+              <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font size="16"/>
+              <text value="Status"/>
+            </properties>
+          </component>
+          <component id="a8964" class="javax.swing.JComboBox" binding="comboBox_getStatus">
+            <constraints>
+              <grid row="0" column="6" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font size="16"/>
+              <model>
+                <item value="Not done"/>
+                <item value="Done"/>
+              </model>
+              <selectedIndex value="-1"/>
+            </properties>
+          </component>
+          <component id="63386" class="javax.swing.JButton" binding="button_clearChoice">
+            <constraints>
+              <grid row="2" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font size="18" style="3"/>
+              <text value="Clear choice"/>
             </properties>
           </component>
         </children>
